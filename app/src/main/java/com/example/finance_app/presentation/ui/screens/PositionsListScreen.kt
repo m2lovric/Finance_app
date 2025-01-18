@@ -1,11 +1,13 @@
 package com.example.finance_app.presentation.ui.screens
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -31,11 +33,14 @@ fun PositionsListScreen(viewModel: PositionsViewModel, modifier: Modifier) {
         )
         LazyColumn {
             items(positions) { position ->
-                Row {
-                    Text(text = "Ticker: ${position.tickerSymbol}")
-                    Text(text = "Quantity: ${position.quantity}")
-                    Text(text = "Purchase Price: ${position.purchasePrice}")
-                    Text(text = position.purchaseDate.toString())
+                Box(modifier = Modifier.padding(8.dp)){
+                    Column {
+                        Text(text = "Ticker: ${position.tickerSymbol}")
+                        Text(text = "Quantity: ${position.quantity}")
+                        Text(text = "Purchase Price: ${position.purchasePrice}")
+                        Text(text = position.purchaseDate.toString())
+                        Text(text = "Value: ${position.purchasePrice * position.quantity}")
+                    }
                 }
             }
         }

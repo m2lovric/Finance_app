@@ -7,5 +7,5 @@ data class Position (
     val tickerSymbol: String,
     val quantity: Double,
     val purchasePrice: Double,
-    val purchaseDate: LocalDate
+    val purchaseDate: LocalDate,
 )
