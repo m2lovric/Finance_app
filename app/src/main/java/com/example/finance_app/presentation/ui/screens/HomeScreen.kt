@@ -1,4 +1,4 @@
-package com.example.finance_app.screens
+package com.example.finance_app.presentation.ui.screens
 
 import android.icu.text.NumberFormat
 import androidx.compose.foundation.layout.Column
@@ -14,27 +14,29 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.finance_app.components.BottomNavigationBar
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.finance_app.presentation.viewmodels.PositionsViewModel
+import com.example.finance_app.presentation.viewmodels.PositionsViewModel.Companion.factory
 import java.util.Locale
 
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
-    Scaffold(
-        bottomBar = {BottomNavigationBar()}
-    ) { paddingValues ->
+    val positionsViewModel: PositionsViewModel = viewModel(factory = PositionsViewModel.factory)
+    Scaffold() { paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
             TotalBalance()
+            PositionsListScreen(positionsViewModel, Modifier)
         }
     }
 }
 
 @Composable
 fun TotalBalance(modifier: Modifier = Modifier) {
-    var totalBalance = 12300
+    val totalBalance = 12300
     val formatted = NumberFormat.getCurrencyInstance(Locale.GERMANY).format(totalBalance)
     Card(
         modifier = Modifier

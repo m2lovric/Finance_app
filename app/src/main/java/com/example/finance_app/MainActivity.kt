@@ -10,8 +10,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.finance_app.screens.HomeScreen
-import com.example.finance_app.ui.theme.Finance_appTheme
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.finance_app.presentation.ui.screens.HomeScreen
+import com.example.finance_app.presentation.ui.screens.PositionsListScreen
+import com.example.finance_app.presentation.ui.theme.Finance_appTheme
+import com.example.finance_app.presentation.viewmodels.PositionsViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,10 +23,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             Finance_appTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    HomeScreen(modifier = Modifier
-                        .fillMaxSize()
-                        .padding(innerPadding)
-                    )
+                    HomeScreen(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
