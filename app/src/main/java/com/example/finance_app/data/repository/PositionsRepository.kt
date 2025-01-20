@@ -7,9 +7,9 @@ import java.time.LocalDate
 
 class PositionsRepository {
     private val _positions = MutableStateFlow<List<Position>>(
-
-listOf(Position(23,"AAPL", 2.0, 230.0, LocalDate.now()))
-
+        listOf(
+            Position(23,"AAPL", 2.0, 230.0, LocalDate.now())
+        )
     )
     private val positions: StateFlow<List<Position>> = _positions
 

@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -7,6 +9,8 @@ plugins {
 android {
     namespace = "com.example.finance_app"
     compileSdk = 35
+    val properties = Properties()
+    properties.load(project.rootProject.file("local.properties").inputStream())
 
     defaultConfig {
         applicationId = "com.example.finance_app"
@@ -16,15 +20,26 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+
+        buildConfigField(
+            "String",
+            "API_KEY",
+            properties.getProperty("API_KEY")
+        )
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            debug {
+                buildConfigField("String", "API_KEY", "\"${properties.getProperty("API_KEY")}\"")
+            }
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "API_KEY", "\"${properties.getProperty("API_KEY")}\"")
         }
     }
     compileOptions {
@@ -35,11 +50,15 @@ android {
         jvmTarget = "11"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
 }
 
 dependencies {
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation(libs.desugar.jdk.libs)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.core.ktx)
